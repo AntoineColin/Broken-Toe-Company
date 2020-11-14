@@ -9,9 +9,8 @@ public class BaseCharacter : MonoBehaviour
     int speed;
     int mind;
 
-    public bool canFish;
-    public bool canHunt;
-    public bool canResurrect;
+    public enum Skill { VILLAGER, FISHER, HUNTER, WARRIOR, MAGE, NECROMANCER, COOK, PALADIN, DEMONIST, ARTIFICER, GATHERER, TRESORHUNTER, BARBARIAN, SPRINTER, SAGE, PRINCESS, THIEF, STRATEGIST, JUDGE, TANK, SCOUT}
+    public Skill currentSkill = Skill.VILLAGER;
 
     void Start()
     {
@@ -23,7 +22,7 @@ public class BaseCharacter : MonoBehaviour
 
     }
 
-    void LeaveCompany()
+    public void LeaveCompany()
     {
 
     }
