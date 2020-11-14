@@ -6,22 +6,24 @@ public class GameManager : MonoBehaviour
 {
     
     public BaseEncounter currentEncounter;
-    public float chrono = 10;
+    public float chrono = 0;
+    public float maxChrono = 10;
     public TimerChoose timerChoose;
 
     void Start()
     {
-        
+        timerChoose.ResetSlider(maxChrono);
     }
 
-    private void Update()
+    void Update()
     {
         chronoUpdate();
-        if (chrono == 0)
+        if (chrono >= maxChrono)
         {
             //Biome.changeEncounter();
-            chrono = 5;
-            timerChoose.ResetSlider(chrono);
+            chrono = 0;
+            maxChrono = 10;
+            timerChoose.ResetSlider(maxChrono);
         }
             
     }
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     void chronoUpdate()
     {
-        chrono -= Time.deltaTime;
+        chrono += Time.deltaTime;
         timerChoose.setSliderVal(chrono);
     }
 }
