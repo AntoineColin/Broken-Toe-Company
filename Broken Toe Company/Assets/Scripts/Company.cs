@@ -8,6 +8,7 @@ using static BaseCharacter;
 public class Company : MonoBehaviour
 {
     public List<BaseCharacter> characters;
+    public int gold = 0;
 
     enum SelectionMethod { RANDOM, FIRST, LAST}
 
@@ -55,5 +56,18 @@ public class Company : MonoBehaviour
         return characters.Any(x => x.currentSkill == Skill.NECROMANCER);
     }
 
+    public Boolean checkGold(int gold)
+    {
+        int check = this.gold + gold;
+        return check > 0 ? true : false;
+       
+    }
+
+    public void changeGold(int gold)
+    {
+        this.gold += gold;
+        if (this.gold < 0) 
+            this.gold = 0;
+    }
 
 }
