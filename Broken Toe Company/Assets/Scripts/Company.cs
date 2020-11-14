@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,20 +7,27 @@ using static BaseCharacter;
 public class Company : MonoBehaviour
 {
     public List<BaseCharacter> characters;
+    public int gold = 0;
+    public int food = 0;
 
-    enum SelectionMethod { RANDOM, FIRST, LAST}
+    public int strengthMod;
+    public int speedMod;
+    public int mindMod;
+
+    public enum SelectionMethod { RANDOM, FIRST, LAST }
 
     void Start()
     {
-        
+        //GenerateCharacter().transform.parent = transform;
+        characters.AddRange(transform.GetComponentsInChildren<BaseCharacter>());
     }
 
-    void AddCharacter(BaseCharacter character)
+    public void AddCharacter(BaseCharacter character)
     {
         characters.Add(character);
     }
 
-    void RemoveCharacter(Func<BaseCharacter, bool> conditionToBeRemoved, int count = 1, SelectionMethod selectionMethod = SelectionMethod.RANDOM)
+    public void RemoveCharacter(Func<BaseCharacter, bool> conditionToBeRemoved, int count = 1, SelectionMethod selectionMethod = SelectionMethod.RANDOM)
     {
         List<BaseCharacter> potentialyOut = characters.Where(conditionToBeRemoved).ToList();
         if (count > potentialyOut.Count) count = potentialyOut.Count;
@@ -29,31 +35,96 @@ public class Company : MonoBehaviour
         {
             case SelectionMethod.RANDOM:
                 System.Random rand = new System.Random();
-                while(count-- < 0) potentialyOut[rand.Next(potentialyOut.Count - 1)].LeaveCompany();
+                while (count-- < 0)
+                {
+                    int choice = rand.Next(potentialyOut.Count - 1);
+                    potentialyOut[choice].LeaveCompany();
+                    characters.Remove(potentialyOut[choice]);
+                    potentialyOut.RemoveAt(choice);
+                }
                 break;
             case SelectionMethod.FIRST:
-                while (count-- < 0) potentialyOut[0].LeaveCompany();
+                while (count-- < 0)
+                {
+                    potentialyOut[0].LeaveCompany();
+                    characters.Remove(potentialyOut[0]);
+                    potentialyOut.RemoveAt(0);
+                }
                 break;
             case SelectionMethod.LAST:
-                while (count-- < 0) potentialyOut[potentialyOut.Count - 1].LeaveCompany();
+                while (count-- < 0)
+                {
+                    potentialyOut[potentialyOut.Count - 1].LeaveCompany();
+                    characters.Remove(potentialyOut[potentialyOut.Count - 1]);
+                    potentialyOut.RemoveAt(potentialyOut.Count - 1);
+                }
                 break;
         }
     }
 
-    bool hasFisher()
+    public List<BaseCharacter> GetCharacters(Func<BaseCharacter, bool> conditionToBeRemoved, int count = 1, SelectionMethod selectionMethod = SelectionMethod.RANDOM)
     {
-        return characters.Any(x => x.currentSkill == Skill.FISHER);
+        List<BaseCharacter> candidates = characters.Where(conditionToBeRemoved).ToList();
+        List<BaseCharacter> keptCharacter = new List<BaseCharacter>();
+        if (count > candidates.Count) count = candidates.Count;
+        switch (selectionMethod)
+        {
+            case SelectionMethod.RANDOM:
+                System.Random rand = new System.Random();
+                while (count-- < 0) { keptCharacter.Add(candidates[rand.Next(candidates.Count - 1)]); }
+                break;
+            case SelectionMethod.FIRST:
+                while (count-- < 0) { keptCharacter.Add(candidates[0]); }
+                break;
+            case SelectionMethod.LAST:
+                while (count-- < 0) { keptCharacter.Add(candidates[candidates.Count - 1]); }
+                break;
+        }
+        return keptCharacter;
     }
 
-    bool hasHunter()
+    public void SumToGold(int amount)
     {
-        return characters.Any(x => x.currentSkill == Skill.HUNTER);
+        if (amount > 0 && HasSkill(Skill.TAXCOLLECTOR)) amount = (int)(amount * 1.5f);
+        gold += amount;
+        if (gold < 0) gold = 0;
     }
 
-    bool hasNecromancer()
+    public void SumToFood(int amount)
     {
-        return characters.Any(x => x.currentSkill == Skill.NECROMANCER);
+        if (amount > 0 && HasSkill(Skill.COOK)) amount = (int)(amount * 1.5f);
+        food += amount;
+        if (food < 0) food = 0;
     }
 
+    public int GetTotalStrength()
+    {
+        return strengthMod + characters.Select(x => x.strength).Sum();
+    }
+
+    public int GetTotalSpeed()
+    {
+        return speedMod + characters.Select(x => x.speed).Sum();
+    }
+
+    public int GetTotalMind()
+    {
+        return mindMod + characters.Select(x => x.mind).Sum();
+    }
+
+    public bool hasEnoughGold(int goldAmount)
+    {
+        return gold >= goldAmount;
+    }
+
+    public bool hasEnoughFood(int foodAmount)
+    {
+        return food >= foodAmount;
+    }
+
+    public bool HasSkill(Skill skill)
+    {
+        return characters.Any(x => x.currentSkill == skill);
+    }
 
 }
