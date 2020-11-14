@@ -6,8 +6,8 @@ public class GameManager : MonoBehaviour
 {
     
     public BaseEncounter currentEncounter;
-    public float chrono = 0;
-    public float maxChrono = 10;
+    public float chrono;
+    public float maxChrono;
     public TimerChoose timerChoose;
 
     void Start()
