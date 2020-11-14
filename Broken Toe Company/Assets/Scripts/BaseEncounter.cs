@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseEncounter : MonoBehaviour
 {
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +16,10 @@ public class BaseEncounter : MonoBehaviour
     {
         
     }
+
+    void SelectAnEncounter()
+    {
+
+    }
+
 }

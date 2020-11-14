@@ -101,6 +101,12 @@ public class Company : MonoBehaviour
     {
         return strengthMod + characters.Select(x => x.strength).Sum();
     }
+    public Boolean checkGold(int gold)
+    {
+        int check = this.gold + gold;
+        return check > 0 ? true : false;
+       
+    }
 
     public int GetTotalSpeed()
     {
@@ -125,6 +131,13 @@ public class Company : MonoBehaviour
     public bool HasSkill(Skill skill)
     {
         return characters.Any(x => x.currentSkill == skill);
+    }
+
+    public void changeGold(int gold)
+    {
+        this.gold += gold;
+        if (this.gold < 0) 
+            this.gold = 0;
     }
 
 }

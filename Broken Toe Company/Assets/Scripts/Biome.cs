@@ -6,7 +6,7 @@ using Random = System.Random;
 
 public class Biome : MonoBehaviour
 {
-    public enum TypeBiome { CLAIRIERE, VILLAGE, CHAMP, FORET, CIMETIERE, CHATEAU, CRYPTE, FORET_NOIRE, DESERT }
+    public enum TypeBiome { CLAIRIERE, CHAMP, FORET, CIMETIERE, CHATEAU, CRYPTE, FORET_NOIRE, DESERT }
     public TypeBiome currentBiome = TypeBiome.CLAIRIERE;
 
     // Start is called before the first frame update
@@ -27,6 +27,4 @@ public class Biome : MonoBehaviour
         Random random = new Random();
         currentBiome = (TypeBiome)values.GetValue(random.Next(values.Length));
     }
-
-
 }
