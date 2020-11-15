@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3535128254850932924}
   - component: {fileID: 9126093849673224974}
   - component: {fileID: 5923775422470833276}
+  - component: {fileID: 3052655561838596210}
   m_Layer: 5
-  m_Name: Encounter
+  m_Name: EncounterPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.37, y: 0.4613962}
   m_AnchorMax: {x: 0.62976485, y: 0.73}
-  m_AnchoredPosition: {x: 0.02519989, y: 0.10000038}
+  m_AnchoredPosition: {x: 0.02519989, y: 0.099998474}
   m_SizeDelta: {x: -0.000030517578, y: -0.117702484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9126093849673224974
@@ -74,3 +75,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3052655561838596210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5136690174419289727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17db6908d4fbe243915fc0950bb218d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEncounter: 0
+  currentEncouterImage: {fileID: 5923775422470833276}
+  spriteEncounter: {fileID: 0}

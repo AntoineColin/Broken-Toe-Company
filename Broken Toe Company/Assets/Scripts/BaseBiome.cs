@@ -14,13 +14,14 @@ public class BaseBiome : MonoBehaviour
 
     public Sprite spriteBiome;
     public Image currentBiomeImage;
+    Random random = new Random();
 
     public BaseEncounter baseEncounter;
 
     private void Start()
     {
         currentBiomeImage = transform.Find("biome").GetComponent<Image>();
-        CreateEncounter();
+        
     }
 
     public void initSprite(Sprite spriteBiomeSend)
@@ -35,8 +36,9 @@ public class BaseBiome : MonoBehaviour
         BaseBiome baseBiome = biomeObject.GetComponent<BaseBiome>();
 
         Array values = Enum.GetValues(typeof(TypeBiome));
-        Random random = new Random();
-        baseBiome.currentBiome = (TypeBiome)values.GetValue(random.Next(values.Length));
+        baseBiome.currentBiome = (TypeBiome)values.GetValue(baseBiome.random.Next(values.Length));
+
+        baseBiome.CreateEncounter();
 
         return baseBiome;
     }
@@ -44,5 +46,6 @@ public class BaseBiome : MonoBehaviour
     public void CreateEncounter()
     {
         baseEncounter = GenerateEncounter();
+        baseEncounter.transform.SetParent(transform.Find("PanelEncounter"));
     }
 }

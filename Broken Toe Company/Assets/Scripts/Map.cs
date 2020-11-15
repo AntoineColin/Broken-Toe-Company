@@ -11,6 +11,8 @@ public class Map : MonoBehaviour
     public List<Sprite> BiomeSprite;
     public List<Sprite> EncounterSprite;
 
+    Random random = new Random();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +25,8 @@ public class Map : MonoBehaviour
     public void CreateBiome(int i)
     {
         BaseBiome newBiome = GenerateBiome();
-        if (i == 1 || i == 3)
-        {
-            newBiome.initSprite(BiomeSprite[0]);
-        }
-        else
-        {
-            newBiome.initSprite(BiomeSprite[1]);
-        }
+        newBiome.initSprite(BiomeSprite[random.Next(BiomeSprite.Count)]);
+        newBiome.baseEncounter.initSpriteEncounter(EncounterSprite[random.Next(EncounterSprite.Count)]);
 
         AddBiome(newBiome);
         if (i == 0)
@@ -69,22 +65,16 @@ public class Map : MonoBehaviour
         biomes[0].GetComponent<Button>().enabled = false;
         biomes[0].transform.SetParent(transform.Find("BiomePrincipal"));
 
-        Random random = new Random();
+        
 
         for (int i = 0; i < 3; i++)
         {
             BaseBiome newBiome = GenerateBiome();
 
-            float rdn = random.Next(0, 2);
-            if (rdn >= 1)
-            {
-                newBiome.initSprite(BiomeSprite[0]);
-            }
-            else
-            {
-                newBiome.initSprite(BiomeSprite[1]);
-            }
+            newBiome.initSprite(BiomeSprite[random.Next(BiomeSprite.Count)]);
+            newBiome.baseEncounter.initSpriteEncounter(EncounterSprite[random.Next(EncounterSprite.Count)]);
             AddBiome(newBiome);
+
             newBiome.transform.SetParent(transform.Find("BiomeChoix"));
         }
     }
