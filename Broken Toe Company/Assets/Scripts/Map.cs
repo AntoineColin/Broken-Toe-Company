@@ -50,12 +50,15 @@ public class Map : MonoBehaviour
         biomes.Add(waitingCleanBiome);
         biomes[0].transform.SetParent(transform.Find("BiomePrincipal"));
 
+        Random random = new Random();
+
         for (int i = 0; i < 3; i++)
         {
             BaseBiome newBiome = GenerateBiome();
-            Random random = new Random();
             
-            if (random.Next(1, 3) <= 2)
+            float rdn = random.Next(0, 2);
+            print(rdn);
+            if (rdn >= 1)
             {
                 newBiome.initSprite(foret);
             }

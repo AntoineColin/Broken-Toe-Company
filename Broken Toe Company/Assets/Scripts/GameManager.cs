@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         if (chrono >= maxChrono)
         {
             chrono = 0;
-            maxChrono = 2;
+            maxChrono = 5;
             timerChoose.ResetSlider(maxChrono);
             
             onEncounterChange.Invoke();
