@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
@@ -26,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        chronoUpdate();
+        ChronoUpdate();
         if (chrono >= maxChrono)
         {
             //Biome.changeEncounter();
@@ -37,8 +35,11 @@ public class GameManager : MonoBehaviour
             onEncounterChange.Invoke();
 
             biome.updateAllBiome(1);
+            biome = Biome.GenerateBiome();
+            onEncounterChange.Invoke();
+            UpdateAllBiome();
         }
-            
+
     }
 
     void GenerateChoices(int choiceNumber)
@@ -46,9 +47,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void chronoUpdate()
+    void ChronoUpdate()
     {
         chrono += Time.deltaTime;
         timerChoose.setSliderVal(chrono);
+    }
+
+    void UpdateAllBiome()
+    {
+
     }
 }

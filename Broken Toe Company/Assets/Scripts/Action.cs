@@ -12,8 +12,8 @@ public abstract class Action : MonoBehaviour
     public int nbUses = 1;
     protected bool used = true;
 
-    Button btn;
-    Image image;
+    protected Button btn;
+    protected Image image;
     protected Text text;
 
     void Start()
@@ -25,7 +25,7 @@ public abstract class Action : MonoBehaviour
         CheckAvailability();
     }
 
-    void CheckAvailability() {
+    protected void CheckAvailability() {
         if (GameManager.INSTANCE.company.HasEnoughGold(priceMoney) && GameManager.INSTANCE.company.HasEnoughFood(priceFood))
         {
             btn.interactable = true;
