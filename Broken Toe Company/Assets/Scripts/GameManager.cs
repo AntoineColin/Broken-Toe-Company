@@ -9,10 +9,12 @@ public class GameManager : MonoBehaviour
     public float chrono;
     public float maxChrono;
     public TimerChoose timerChoose;
+    public Biome biome;
 
     void Start()
     {
         timerChoose.ResetSlider(maxChrono);
+        biome = new Biome();
     }
 
     void Update()
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
             chrono = 0;
             maxChrono = 10;
             timerChoose.ResetSlider(maxChrono);
+            biome.pickBiome();
         }
             
     }
