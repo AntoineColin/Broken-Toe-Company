@@ -9,7 +9,7 @@ namespace Assets.Scripts.Actions
         readonly System.Random random = new System.Random();
         [Range(0, 1)]
         public float chanceToReward = 0.5f;
-        public int rewardGold, rewardFood;
+        public int rewardGold = 10, rewardFood = 3;
 
         protected override void Begin() { }
         protected override void Effect()
@@ -39,6 +39,19 @@ namespace Assets.Scripts.Actions
             if (rewardFood != 0) sb.AppendLine(rewardFood + " food");
             sb.Length--;
             return sb.ToString();
+        }
+
+        public static ActionReward GenerateActionReward(int goldPrice, int foodPrice, int gold, int food, float chance)
+        {
+            GameObject actionObject = (GameObject)Instantiate(Resources.Load("Action"));
+            ActionReward action = actionObject.AddComponent<ActionReward>();
+            actionObject.transform.SetParent(GameObject.Find("ActionsPanel").transform);
+            action.priceMoney = goldPrice;
+            action.priceFood = foodPrice;
+            action.rewardGold = gold;
+            action.rewardFood = food;
+            action.chanceToReward = chance;
+            return action;
         }
     }
 }

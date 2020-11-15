@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using UnityEngine;
 using System.Text;
-using System.Threading.Tasks;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Actions
 {
@@ -11,11 +7,7 @@ namespace Assets.Scripts.Actions
     {
         BaseCharacter character;
 
-        protected override void Begin()
-        {
-            character = BaseCharacter.GenerateCharacter();
-            priceMoney = character.price;
-        }
+        
 
         protected override void Effect()
         {
@@ -34,6 +26,20 @@ namespace Assets.Scripts.Actions
             sb.AppendLine("Get " + character.surname + " the " + character.currentSkill.ToString().ToLower());
             sb.Length--;
             return sb.ToString();
+        }
+
+        protected override void Begin()
+        {
+            character = BaseCharacter.GenerateCharacter();
+            priceMoney = character.price;
+        }
+
+        public static ActionBuyCharacter GenerateActionBuyCharacter()
+        {
+            GameObject actionObject = (GameObject)Instantiate(Resources.Load("Action"));
+            ActionBuyCharacter action = actionObject.AddComponent<ActionBuyCharacter>();
+            actionObject.transform.SetParent(GameObject.Find("ActionsPanel").transform);
+            return action;
         }
     }
 }

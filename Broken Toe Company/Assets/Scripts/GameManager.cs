@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class GameManager : MonoBehaviour
 
     public int clickedBiome = 2;
 
+    public AudioClip[] clips;
+    new AudioSource audio;
+    bool strongerMusic = false;
+
+    System.Random random = new System.Random();
+
     void Start()
     {
         onEncounterChanged = new UnityEvent();
@@ -25,6 +32,9 @@ public class GameManager : MonoBehaviour
         timerChoose.ResetSlider(maxChrono);
         company = FindObjectOfType<Company>();
         map = FindObjectOfType<Map>();
+        audio = GetComponent<AudioSource>();
+        audio.clip = clips[0];
+        audio.Play();
     }
 
     void Update()
@@ -33,10 +43,12 @@ public class GameManager : MonoBehaviour
         if (chrono >= maxChrono)
         {
             chrono = 0;
-            maxChrono = 5;
             timerChoose.ResetSlider(maxChrono);
-            
-            onEncounterChanged.Invoke();
+
+            if (random.Next(5) == 4) strongerMusic = true;
+            if (strongerMusic) audio.clip = clips[random.Next(2, 4)];
+            else audio.clip = clips[random.Next(0, 2)];
+            audio.Play();
 
             map.UpdateAllBiome();
             map.UpdateEncounter();
@@ -53,5 +65,16 @@ public class GameManager : MonoBehaviour
     {
         chrono += Time.deltaTime;
         timerChoose.setSliderVal(chrono);
+    }
+
+    public void ExitGame()
+    {
+        Debug.Log("exit game");
+        Application.Quit();
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

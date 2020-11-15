@@ -21,9 +21,9 @@ public abstract class Action : MonoBehaviour
         btn = GetComponent<Button>();
         image = GetComponent<Image>();
         text = GetComponentInChildren<Text>();
+        Begin();
         text.text = ToString();
         CheckAvailability();
-        Begin();
         GameManager.INSTANCE.onResourceChanged.AddListener(CheckAvailability);
         if (removeWhenLeaving) GameManager.INSTANCE.onEncounterChanged.AddListener(RemoveAction);
     }

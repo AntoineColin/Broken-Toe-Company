@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.Actions
 {
@@ -49,10 +50,24 @@ namespace Assets.Scripts.Actions
             sb.AppendLine("");
             if (bonusStrength != 0) sb.AppendLine("Gain " + bonusStrength + " strength");
             if (bonusSpeed != 0) sb.AppendLine("Gain " + bonusSpeed + " speed");
-            if (bonusMind != 0) sb.AppendLine("Gain " + bonusStrength + " mind");
+            if (bonusMind != 0) sb.AppendLine("Gain " + bonusMind + " mind");
             sb.AppendLine("for the next " + (nbTurn == 0 ? nbTurnMax : nbTurn) + " encounters");
             sb.Length--;
             return sb.ToString();
+        }
+
+        public static ActionBoost GenerateActionBoost(int goldPrice, int foodPrice, int strength, int speed, int mind, int turnNb)
+        {
+            GameObject actionObject = (GameObject)Instantiate(Resources.Load("Action"));
+            ActionBoost action = actionObject.AddComponent<ActionBoost>();
+            actionObject.transform.SetParent(GameObject.Find("ActionsPanel").transform);
+            action.priceMoney = goldPrice;
+            action.priceFood = foodPrice;
+            action.bonusStrength = strength;
+            action.bonusSpeed = speed;
+            action.bonusMind = mind;
+            action.nbTurnMax = turnNb;
+            return action;
         }
     }
 }
