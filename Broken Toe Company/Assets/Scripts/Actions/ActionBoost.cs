@@ -10,7 +10,10 @@ namespace Assets.Scripts.Actions
         public int nbTurnMax = 1;
         int nbTurn;
 
-        protected override void Begin() { }
+        protected override void Begin()
+        {
+            removeWhenLeaving = false;
+        }
         protected override void Effect()
         {
             nbTurn = nbTurnMax;
@@ -32,7 +35,8 @@ namespace Assets.Scripts.Actions
                 GameManager.INSTANCE.company.SumToStrength(-bonusStrength);
                 GameManager.INSTANCE.company.SumToSpeed(-bonusSpeed);
                 GameManager.INSTANCE.company.SumToMind(-bonusMind);
-                if (nbUses == 0) RemoveAction();
+                GameManager.INSTANCE.onEncounterChanged.RemoveListener(EndEffect);
+                if (nbUses <= 0) RemoveAction();
             }
             text.text = ToString();
         }
@@ -42,10 +46,12 @@ namespace Assets.Scripts.Actions
             StringBuilder sb = new StringBuilder("");
             if (priceMoney != 0) sb.AppendLine("Gold price : " + priceMoney);
             if (priceFood != 0) sb.AppendLine("Food price : " + priceFood);
+            sb.AppendLine("");
             if (bonusStrength != 0) sb.AppendLine("Gain " + bonusStrength + " strength");
             if (bonusSpeed != 0) sb.AppendLine("Gain " + bonusSpeed + " speed");
             if (bonusMind != 0) sb.AppendLine("Gain " + bonusStrength + " mind");
             sb.AppendLine("for the next " + (nbTurn == 0 ? nbTurnMax : nbTurn) + " encounters");
+            sb.Length--;
             return sb.ToString();
         }
     }
