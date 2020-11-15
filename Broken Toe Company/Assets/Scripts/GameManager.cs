@@ -36,8 +36,6 @@ public class GameManager : MonoBehaviour
             maxChrono = 5;
             timerChoose.ResetSlider(maxChrono);
             
-            onEncounterChanged.Invoke();
-
             map.UpdateAllBiome(clickedBiome);
             onEncounterChanged.Invoke();
         }

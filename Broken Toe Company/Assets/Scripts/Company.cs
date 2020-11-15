@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using static BaseCharacter;
 
 public class Company : MonoBehaviour
@@ -19,8 +20,15 @@ public class Company : MonoBehaviour
     [Range(1, 4)]
     public int startingCharacter = 1;
 
+    Text goldText, foodText;
+
     void Start()
     {
+        Transform counters = transform.Find("CounterPanel");
+        goldText = counters.Find("GoldText").GetComponent<Text>();
+        foodText = counters.Find("FoodText").GetComponent<Text>();
+        goldText.text = gold.ToString();
+        foodText.text = food.ToString();
         for (int i = 0; i < startingCharacter; i++)
         {
             BaseCharacter goChara = GenerateCharacter();
@@ -104,6 +112,7 @@ public class Company : MonoBehaviour
         if (amount > 0 && HasSkill(Skill.TAXCOLLECTOR)) amount = (int)(amount * 1.5f);
         gold += amount;
         if (gold < 0) gold = 0;
+        goldText.text = gold.ToString();
         GameManager.INSTANCE.onResourceChanged.Invoke();
     }
 
@@ -112,6 +121,7 @@ public class Company : MonoBehaviour
         if (amount > 0 && HasSkill(Skill.COOK)) amount = (int)(amount * 2);
         food += amount;
         if (food < 0) food = 0;
+        foodText.text = food.ToString();
         GameManager.INSTANCE.onResourceChanged.Invoke();
     }
 

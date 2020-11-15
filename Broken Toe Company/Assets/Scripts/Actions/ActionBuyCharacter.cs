@@ -30,7 +30,9 @@ namespace Assets.Scripts.Actions
         {
             StringBuilder sb = new StringBuilder("");
             if (priceMoney != 0) sb.AppendLine("Gold price : " + priceMoney);
+            sb.AppendLine("");
             sb.AppendLine("Get " + character.surname + " the " + character.currentSkill.ToString().ToLower());
+            sb.Length--;
             return sb.ToString();
         }
     }

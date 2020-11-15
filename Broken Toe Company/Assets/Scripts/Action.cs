@@ -23,9 +23,9 @@ public abstract class Action : MonoBehaviour
         text = GetComponentInChildren<Text>();
         text.text = ToString();
         CheckAvailability();
+        Begin();
         GameManager.INSTANCE.onResourceChanged.AddListener(CheckAvailability);
         if (removeWhenLeaving) GameManager.INSTANCE.onEncounterChanged.AddListener(RemoveAction);
-        Begin();
     }
 
     protected void CheckAvailability() {

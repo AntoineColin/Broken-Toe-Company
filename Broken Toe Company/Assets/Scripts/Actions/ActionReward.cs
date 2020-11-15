@@ -30,12 +30,14 @@ namespace Assets.Scripts.Actions
             StringBuilder sb = new StringBuilder("");
             if (priceMoney != 0) sb.AppendLine("Gold price : " + priceMoney);
             if (priceFood != 0) sb.AppendLine("Food price : " + priceFood);
+            sb.AppendLine("");
             if (chanceToReward >= 0.8f) sb.AppendLine("Great chances to get");
             else if (chanceToReward >= 0.5f) sb.AppendLine("Good chances to get");
             else if (chanceToReward >= 0.3f) sb.AppendLine("Weak chances to get");
             else sb.AppendLine("Thin chances to get");
             if (rewardGold != 0) sb.AppendLine(rewardGold + " gold");
             if (rewardFood != 0) sb.AppendLine(rewardFood + " food");
+            sb.Length--;
             return sb.ToString();
         }
     }
