@@ -11,15 +11,10 @@ namespace Assets.Scripts.Actions
     {
         BaseCharacter character;
 
-        void Start()
+        protected override void Begin()
         {
             character = BaseCharacter.GenerateCharacter();
             priceMoney = character.price;
-            btn = GetComponent<Button>();
-            image = GetComponent<Image>();
-            text = GetComponentInChildren<Text>();
-            text.text = ToString();
-            CheckAvailability();
         }
 
         protected override void Effect()

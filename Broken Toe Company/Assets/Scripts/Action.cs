@@ -10,7 +10,7 @@ public abstract class Action : MonoBehaviour
     public int priceFood;
     public bool removeWhenLeaving = true;
     public int nbUses = 1;
-    protected bool used = true;
+    protected bool available = true;
 
     protected Button btn;
     protected Image image;
@@ -23,10 +23,13 @@ public abstract class Action : MonoBehaviour
         text = GetComponentInChildren<Text>();
         text.text = ToString();
         CheckAvailability();
+        GameManager.INSTANCE.onResourceChanged.AddListener(CheckAvailability);
+        if (removeWhenLeaving) GameManager.INSTANCE.onEncounterChanged.AddListener(RemoveAction);
+        Begin();
     }
 
     protected void CheckAvailability() {
-        if (GameManager.INSTANCE.company.HasEnoughGold(priceMoney) && GameManager.INSTANCE.company.HasEnoughFood(priceFood))
+        if (GameManager.INSTANCE.company.HasEnoughGold(priceMoney) && GameManager.INSTANCE.company.HasEnoughFood(priceFood) && available)
         {
             btn.interactable = true;
             btn.onClick.AddListener(Activate);
@@ -47,9 +50,10 @@ public abstract class Action : MonoBehaviour
 
     protected void RemoveAction()
     {
-        if(used) Destroy(gameObject);
+        if(available) Destroy(gameObject);
     }
 
+    protected abstract void Begin();
     protected abstract void Effect();
     protected abstract void EndEffect();
 }
