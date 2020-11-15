@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static BaseBiome;
+using Random = System.Random;
 
 public class Map : MonoBehaviour
 {
     public List<BaseBiome> biomes;
+    public Sprite foret, desert;
 
     // Start is called before the first frame update
     void Start()
@@ -13,36 +15,61 @@ public class Map : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             BaseBiome newBiome = GenerateBiome();
+            if (i == 1 || i == 3)
+            {
+                newBiome.initSprite(foret);
+            }
+            else
+            {
+                newBiome.initSprite(desert);
+            }
+            
             AddBiome(newBiome);
+            if (i == 0)
+            {
+                newBiome.transform.SetParent(transform.Find("BiomePrincipal"));
+            }
+            else
+            {
+                newBiome.transform.SetParent(transform.Find("BiomeChoix"));
+            }
         }
-        PickBiome();
-    }
-
-    public void PickBiome()
-    {
-        //Array values = Enum.GetValues(typeof(TypeBiome));
-        //Random random = new Random();
-        //currentBiome = (TypeBiome)values.GetValue(random.Next(values.Length));
     }
 
     public void UpdateAllBiome(int choosenBiome)
     {
-        biomes[0] = biomes[choosenBiome];
-        biomes.RemoveAt(1);
-        biomes.RemoveAt(2);
-        biomes.RemoveAt(3);
+        BaseBiome waitingCleanBiome = biomes[choosenBiome];
+
+        foreach (BaseBiome biome in biomes)
+        {
+            if (biome != waitingCleanBiome)
+                Destroy(biome.gameObject);
+        }
+        biomes.Clear();
+
+        biomes.Add(waitingCleanBiome);
+        biomes[0].transform.SetParent(transform.Find("BiomePrincipal"));
 
         for (int i = 0; i < 3; i++)
         {
             BaseBiome newBiome = GenerateBiome();
+            Random random = new Random();
+            
+            if (random.Next(1, 3) <= 2)
+            {
+                newBiome.initSprite(foret);
+            }
+            else
+            {
+                newBiome.initSprite(desert);
+            }
             AddBiome(newBiome);
+            newBiome.transform.SetParent(transform.Find("BiomeChoix"));
         }
-        
     }
 
     void AddBiome(BaseBiome newBiome)
     {
-        newBiome.transform.SetParent(transform);
-        biomes.Add(newBiome);
+        biomes.Add(newBiome);            
     }
 }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent onEncounterChange;
 
-    public int clickedBiome = 1;
+    public int clickedBiome = 2;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
         timerChoose.ResetSlider(maxChrono);
         company = FindObjectOfType<Company>();
-        //map = FindObjectOfType<Map>();
+        map = FindObjectOfType<Map>();
     }
 
     void Update()
@@ -30,12 +30,12 @@ public class GameManager : MonoBehaviour
         if (chrono >= maxChrono)
         {
             chrono = 0;
-            maxChrono = 10;
+            maxChrono = 2;
             timerChoose.ResetSlider(maxChrono);
             
             onEncounterChange.Invoke();
 
-            //map.UpdateAllBiome(clickedBiome);
+            map.UpdateAllBiome(clickedBiome);
             onEncounterChange.Invoke();
         }
 
