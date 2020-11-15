@@ -1,43 +1,41 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using Random = System.Random;
+using static BaseBiome;
 
 public class Biome : MonoBehaviour
 {
-    public enum TypeBiome { CLAIRIERE, CHAMP, FORET, CIMETIERE, CHATEAU, CRYPTE, FORET_NOIRE, DESERT }
-    public TypeBiome currentBiome = TypeBiome.FORET;
-    
-    public Sprite clairiere, champ, foret, cimetiere, chateau, crypte, foret_noire, desert;
-    public Image currentBiomeImage;
+    public List<BaseCharacter> biomes;
+    public Transform parent;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        currentBiomeImage = transform.Find("biome").GetComponent<Image>();
-        pickBiome();
-    }
-
-    public void pickBiome()
-    {
-        //Array values = Enum.GetValues(typeof(TypeBiome));
-        //Random random = new Random();
-        //currentBiome = (TypeBiome)values.GetValue(random.Next(values.Length));
-        updateImageBiome(currentBiome.ToString());
-    }
-
-    public void updateImageBiome(string typeBiome)
-    {
-        switch (typeBiome)
+        for (int i = 0; i < 4; i++)
         {
-            case "FORET":
-                currentBiomeImage.sprite = foret;
-                break;
-            case "DESERT":
-                currentBiomeImage.sprite = desert;
-                break;
+            GameObject newBiome = GenerateBiome();
+            newBiome.transform.SetParent(transform);
+            AddBiome(newBiome.GetComponent<BaseCharacter>());
         }
-        
+    }
+
+    public void AddBiome(BaseCharacter character)
+    {
+        biomes.Add(character);
+    }
+
+    public void updateAllBiome(int choosenBiome)
+    {
+        biomes[0] = biomes[choosenBiome];
+        biomes.RemoveAt(1);
+        biomes.RemoveAt(2);
+        biomes.RemoveAt(3);
+
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject newBiome = GenerateBiome();
+            newBiome.transform.SetParent(transform);
+            AddBiome(newBiome.GetComponent<BaseCharacter>());
+        }
     }
 }

@@ -20,11 +20,8 @@ public class GameManager : MonoBehaviour
         if (INSTANCE == null) INSTANCE = this;
         else Destroy(gameObject);
         timerChoose.ResetSlider(maxChrono);
-<<<<<<< Updated upstream
         company = FindObjectOfType<Company>();
-        biome = new Biome();
-=======
->>>>>>> Stashed changes
+        biome = FindObjectOfType<Biome>();
     }
 
     void Update()
@@ -36,12 +33,10 @@ public class GameManager : MonoBehaviour
             chrono = 0;
             maxChrono = 10;
             timerChoose.ResetSlider(maxChrono);
-<<<<<<< Updated upstream
-            biome.pickBiome();
+            
             onEncounterChange.Invoke();
-=======
-            updateAllBiome();
->>>>>>> Stashed changes
+
+            biome.updateAllBiome(1);
         }
             
     }
@@ -55,10 +50,5 @@ public class GameManager : MonoBehaviour
     {
         chrono += Time.deltaTime;
         timerChoose.setSliderVal(chrono);
-    }
-
-    void updateAllBiome()
-    {
-
     }
 }
