@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 using static BaseCharacter;
@@ -22,7 +21,7 @@ public class Company : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i< startingCharacter; i++)
+        for (int i = 0; i < startingCharacter; i++)
         {
             GameObject goChara = GenerateCharacter();
             goChara.transform.SetParent(transform);
@@ -68,6 +67,10 @@ public class Company : MonoBehaviour
                 }
                 break;
         }
+        if(characters.Count == 0)
+        {
+            Lose();
+        }
     }
 
     public List<BaseCharacter> GetCharacters(Func<BaseCharacter, bool> conditionToBeRemoved, int count = 1, SelectionMethod selectionMethod = SelectionMethod.RANDOM)
@@ -91,6 +94,11 @@ public class Company : MonoBehaviour
         return keptCharacter;
     }
 
+    public void Lose()
+    {
+
+    }
+
     public void SumToGold(int amount)
     {
         if (amount > 0 && HasSkill(Skill.TAXCOLLECTOR)) amount = (int)(amount * 1.5f);
@@ -105,19 +113,37 @@ public class Company : MonoBehaviour
         if (food < 0) food = 0;
     }
 
+    public void SumToStrength(int amount)
+    {
+        strengthMod += amount;
+    }
+
+    public void SumToSpeed(int amount)
+    {
+        speedMod += amount;
+    }
+
+    public void SumToMind(int amount)
+    {
+        mindMod += amount;
+    }
+
     public int GetTotalStrength()
     {
-        return strengthMod + characters.Select(x => x.strength).Sum();
+        int result = strengthMod + characters.Select(x => x.strength).Sum();
+        return result > 0 ? result : 0;
     }
 
     public int GetTotalSpeed()
     {
-        return speedMod + characters.Select(x => x.speed).Sum();
+        int result = speedMod + characters.Select(x => x.speed).Sum();
+        return result > 0 ? result : 0;
     }
 
     public int GetTotalMind()
     {
-        return mindMod + characters.Select(x => x.mind).Sum();
+        int result = mindMod + characters.Select(x => x.mind).Sum();
+        return result > 0 ? result : 0;
     }
 
     public bool HasEnoughGold(int goldAmount)

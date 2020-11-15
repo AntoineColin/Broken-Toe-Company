@@ -1,30 +1,26 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
 
 public class BaseCharacter : MonoBehaviour
 {
-    public enum Skill { VILLAGER, FISHER, HUNTER, WARRIOR, MAGE, NECROMANCER, COOK, PALADIN, DEMONIST, ARTIFICER, GATHERER, TRESORHUNTER, BARBARIAN, SPRINTER, SAGE, PRINCESS, THIEF, STRATEGIST, JUDGE, TANK, SCOUT, TAXCOLLECTOR}
+    public enum Skill { VILLAGER, FISHER, HUNTER, WARRIOR, MAGE, NECROMANCER, COOK, PALADIN, DEMONIST, ARTIFICER, GATHERER, TRESORHUNTER, BARBARIAN, SPRINTER, SAGE, PRINCESS, THIEF, STRATEGIST, JUDGE, TANK, SCOUT, TAXCOLLECTOR }
     public Skill currentSkill = Skill.VILLAGER;
 
     public string surname;
-    [Range(-3, 3)]
+    [Range(0, 5)]
     public int strength;
-    [Range(-3, 3)]
+    [Range(0, 5)]
     public int speed;
-    [Range(-3, 3)]
+    [Range(0, 5)]
     public int mind;
 
     Text strengthText, speedText, mindText, surnameText;
+    int price;
 
-    static Random random = new Random();
-    static string[] surnames = { "Roger", "Thierry", "Yuan Zu", "Bohort", "Toby", "Jean-Michel", "Tony", "Cynthia", "Lydia", "Karen", "Chad", "Lee", "Christiana", "Ingeborg", "Alton", "Remedios", "Laurine", "Jay", "Cedrick", "Risa", "Mirta", "Roy", "Ethelene", "Pearle", "Candyce", "Tyrell", "Jazmin", "Charlie", "Keri", "Claud", "Nobuko", "Sebrina"};
+    static readonly Random random = new Random();
+    static readonly string[] surnames = { "Roger", "Thierry", "Yuan Zu", "Bohort", "Toby", "Jean-Michel", "Tony", "Cynthia", "Lydia", "Karen", "Chad", "Lee", "Christiana", "Ingeborg", "Alton", "Remedios", "Laurine", "Jay", "Cedrick", "Risa", "Mirta", "Roy", "Ethelene", "Pearle", "Candyce", "Tyrell", "Jazmin", "Charlie", "Keri", "Claud", "Nobuko", "Sebrina" };
 
     void Start()
     {
@@ -40,68 +36,17 @@ public class BaseCharacter : MonoBehaviour
 
     void UpdateStrengthText()
     {
-        if(strength > 0)
-        {
-            strengthText.text = "Strong";
-            strengthText.color = Color.green;
-        }else if(strength < 0)
-        {
-            strengthText.text = "Weak";
-            strengthText.color = Color.red;
-        }
-        else
-        {
-            strengthText.text = "Neutral";
-            strengthText.color = Color.white;
-        }
-        for (int i = 1; i < Mathf.Abs(strength); i++)
-        {
-            strengthText.text = strengthText.text + " +";
-        }
+        strengthText.text = strengthText.text + " " + strength;
     }
 
     void UpdateSpeedText()
     {
-        if(speed > 0)
-        {
-            speedText.text = "Fast";
-            speedText.color = Color.green;
-        }else if(speed < 0)
-        {
-            speedText.text = "Slow";
-            speedText.color = Color.red;
-        }
-        else
-        {
-            speedText.text = "Neutral";
-            speedText.color = Color.white;
-        }
-        for (int i = 1; i < Mathf.Abs(speed); i++)
-        {
-            speedText.text = speedText.text + " +";
-        }
+        speedText.text = speedText.text + " " + speed;
     }
 
     void UpdateMindText()
     {
-        if(mind > 0)
-        {
-            mindText.text = "Smart";
-            mindText.color = Color.green;
-        }else if(mind < 0)
-        {
-            mindText.text = "Idiot";
-            mindText.color = Color.red;
-        }
-        else
-        {
-            mindText.text = "Neutral";
-            mindText.color = Color.white;
-        }
-        for (int i = 1; i < Mathf.Abs(mind); i++)
-        {
-            mindText.text = mindText.text + " +";
-        }
+        mindText.text = mindText.text + " " + mind;
     }
 
     void UpdateSurnameText()
@@ -132,10 +77,11 @@ public class BaseCharacter : MonoBehaviour
         BaseCharacter baseCharacter = charaObject.GetComponent<BaseCharacter>();
         Array values = Enum.GetValues(typeof(Skill));
         baseCharacter.currentSkill = (Skill)values.GetValue(random.Next(values.Length));
-        baseCharacter.strength = random.Next(-1, 2);
-        baseCharacter.speed = random.Next(-1, 2);
-        baseCharacter.mind = random.Next(-1, 2);
+        baseCharacter.strength = random.Next(0, 3);
+        baseCharacter.speed = random.Next(0, 3);
+        baseCharacter.mind = random.Next(0, 3);
         baseCharacter.surname = surnames[random.Next(surnames.Length)];
+        baseCharacter.price = baseCharacter.strength * 5 + baseCharacter.speed * 5 + baseCharacter.mind * 5;
         return charaObject;
     }
 
