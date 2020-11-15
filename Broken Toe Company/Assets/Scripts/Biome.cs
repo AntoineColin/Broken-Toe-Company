@@ -16,18 +16,18 @@ public class Biome : MonoBehaviour
     private void Start()
     {
         currentBiomeImage = transform.Find("biome").GetComponent<Image>();
-        pickBiome();
+        PickBiome();
     }
 
-    public void pickBiome()
+    public void PickBiome()
     {
         //Array values = Enum.GetValues(typeof(TypeBiome));
         //Random random = new Random();
         //currentBiome = (TypeBiome)values.GetValue(random.Next(values.Length));
-        updateImageBiome(currentBiome.ToString());
+        UpdateImageBiome(currentBiome.ToString());
     }
 
-    public void updateImageBiome(string typeBiome)
+    public void UpdateImageBiome(string typeBiome)
     {
         switch (typeBiome)
         {
@@ -39,5 +39,12 @@ public class Biome : MonoBehaviour
                 break;
         }
         
+    }
+
+    public static Biome GenerateBiome()
+    {
+        GameObject goBiome = (GameObject)Instantiate(Resources.Load("Biome"));
+        Biome biome = goBiome.GetComponent<Biome>();
+        return biome;
     }
 }

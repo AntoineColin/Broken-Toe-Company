@@ -23,14 +23,14 @@ public class Company : MonoBehaviour
     {
         for (int i = 0; i < startingCharacter; i++)
         {
-            GameObject goChara = GenerateCharacter();
-            goChara.transform.SetParent(transform);
+            BaseCharacter goChara = GenerateCharacter();
             AddCharacter(goChara.GetComponent<BaseCharacter>());
         }
     }
 
     public void AddCharacter(BaseCharacter character)
     {
+        character.transform.SetParent(transform);
         characters.Add(character);
     }
 

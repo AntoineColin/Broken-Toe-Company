@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
@@ -20,30 +18,23 @@ public class GameManager : MonoBehaviour
         if (INSTANCE == null) INSTANCE = this;
         else Destroy(gameObject);
         timerChoose.ResetSlider(maxChrono);
-<<<<<<< Updated upstream
         company = FindObjectOfType<Company>();
-        biome = new Biome();
-=======
->>>>>>> Stashed changes
     }
 
     void Update()
     {
-        chronoUpdate();
+        ChronoUpdate();
         if (chrono >= maxChrono)
         {
             //Biome.changeEncounter();
             chrono = 0;
             maxChrono = 10;
             timerChoose.ResetSlider(maxChrono);
-<<<<<<< Updated upstream
-            biome.pickBiome();
+            biome = Biome.GenerateBiome();
             onEncounterChange.Invoke();
-=======
-            updateAllBiome();
->>>>>>> Stashed changes
+            UpdateAllBiome();
         }
-            
+
     }
 
     void GenerateChoices(int choiceNumber)
@@ -51,13 +42,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void chronoUpdate()
+    void ChronoUpdate()
     {
         chrono += Time.deltaTime;
         timerChoose.setSliderVal(chrono);
     }
 
-    void updateAllBiome()
+    void UpdateAllBiome()
     {
 
     }

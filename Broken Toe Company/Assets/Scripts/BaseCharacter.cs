@@ -17,7 +17,7 @@ public class BaseCharacter : MonoBehaviour
     public int mind;
 
     Text strengthText, speedText, mindText, surnameText;
-    int price;
+    public int price;
 
     static readonly Random random = new Random();
     static readonly string[] surnames = { "Roger", "Thierry", "Yuan Zu", "Bohort", "Toby", "Jean-Michel", "Tony", "Cynthia", "Lydia", "Karen", "Chad", "Lee", "Christiana", "Ingeborg", "Alton", "Remedios", "Laurine", "Jay", "Cedrick", "Risa", "Mirta", "Roy", "Ethelene", "Pearle", "Candyce", "Tyrell", "Jazmin", "Charlie", "Keri", "Claud", "Nobuko", "Sebrina" };
@@ -36,17 +36,17 @@ public class BaseCharacter : MonoBehaviour
 
     void UpdateStrengthText()
     {
-        strengthText.text = strengthText.text + " " + strength;
+        strengthText.text = "Strength " + strength;
     }
 
     void UpdateSpeedText()
     {
-        speedText.text = speedText.text + " " + speed;
+        speedText.text = "Speed " + speed;
     }
 
     void UpdateMindText()
     {
-        mindText.text = mindText.text + " " + mind;
+        mindText.text = "Mind " + mind;
     }
 
     void UpdateSurnameText()
@@ -71,7 +71,7 @@ public class BaseCharacter : MonoBehaviour
 
     #region Static
 
-    public static GameObject GenerateCharacter()
+    public static BaseCharacter GenerateCharacter()
     {
         GameObject charaObject = (GameObject)Instantiate(Resources.Load("CharacterPanel"));
         BaseCharacter baseCharacter = charaObject.GetComponent<BaseCharacter>();
@@ -82,7 +82,7 @@ public class BaseCharacter : MonoBehaviour
         baseCharacter.mind = random.Next(0, 3);
         baseCharacter.surname = surnames[random.Next(surnames.Length)];
         baseCharacter.price = baseCharacter.strength * 5 + baseCharacter.speed * 5 + baseCharacter.mind * 5;
-        return charaObject;
+        return baseCharacter;
     }
 
     #endregion
