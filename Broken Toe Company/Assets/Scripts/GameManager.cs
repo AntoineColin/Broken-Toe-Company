@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public float chrono;
     public float maxChrono;
     public TimerChoose timerChoose;
+    public Biome biome;
     public Company company;
 
     public UnityEvent onEncounterChange;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
         timerChoose.ResetSlider(maxChrono);
         company = FindObjectOfType<Company>();
+        biome = new Biome();
     }
 
     void Update()
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
             chrono = 0;
             maxChrono = 10;
             timerChoose.ResetSlider(maxChrono);
+            biome.pickBiome();
             onEncounterChange.Invoke();
         }
             

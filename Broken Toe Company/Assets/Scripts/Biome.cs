@@ -7,24 +7,21 @@ using Random = System.Random;
 public class Biome : MonoBehaviour
 {
     public enum TypeBiome { CLAIRIERE, CHAMP, FORET, CIMETIERE, CHATEAU, CRYPTE, FORET_NOIRE, DESERT }
-    public TypeBiome currentBiome = TypeBiome.CLAIRIERE;
+    public TypeBiome currentBiome = TypeBiome.FORET;
 
-    // Start is called before the first frame update
-    void Start()
+    public BiomeImage biomeImage;
+
+    private void Start()
     {
-        
+        biomeImage = GetComponent<BiomeImage>();
+        pickBiome();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void pickBiome()
+    public void pickBiome()
     {
         Array values = Enum.GetValues(typeof(TypeBiome));
         Random random = new Random();
         currentBiome = (TypeBiome)values.GetValue(random.Next(values.Length));
+        biomeImage.changeSpriteBiome("DESERT");
     }
 }
