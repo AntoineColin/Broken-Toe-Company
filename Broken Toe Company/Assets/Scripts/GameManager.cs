@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
             
             onEncounterChanged.Invoke();
 
-            map.UpdateAllBiome(clickedBiome);
+            map.UpdateAllBiome();
+            map.UpdateEncounter();
             onEncounterChanged.Invoke();
         }
     }
