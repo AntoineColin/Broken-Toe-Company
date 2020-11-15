@@ -104,6 +104,7 @@ public class Company : MonoBehaviour
         if (amount > 0 && HasSkill(Skill.TAXCOLLECTOR)) amount = (int)(amount * 1.5f);
         gold += amount;
         if (gold < 0) gold = 0;
+        GameManager.INSTANCE.onResourceChanged.Invoke();
     }
 
     public void SumToFood(int amount)
@@ -111,6 +112,7 @@ public class Company : MonoBehaviour
         if (amount > 0 && HasSkill(Skill.COOK)) amount = (int)(amount * 2);
         food += amount;
         if (food < 0) food = 0;
+        GameManager.INSTANCE.onResourceChanged.Invoke();
     }
 
     public void SumToStrength(int amount)

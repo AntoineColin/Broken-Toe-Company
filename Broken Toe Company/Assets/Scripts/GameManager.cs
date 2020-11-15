@@ -11,12 +11,15 @@ public class GameManager : MonoBehaviour
     public Map map;
     public Company company;
 
-    public UnityEvent onEncounterChange;
+    public UnityEvent onEncounterChanged;
+    public UnityEvent onResourceChanged;
 
     public int clickedBiome = 2;
 
     void Start()
     {
+        onEncounterChanged = new UnityEvent();
+        onResourceChanged = new UnityEvent();
         if (INSTANCE == null) INSTANCE = this;
         else Destroy(gameObject);
         timerChoose.ResetSlider(maxChrono);
@@ -36,9 +39,8 @@ public class GameManager : MonoBehaviour
             onEncounterChange.Invoke();
 
             map.UpdateAllBiome(clickedBiome);
-            onEncounterChange.Invoke();
+            onEncounterChanged.Invoke();
         }
-
     }
 
     void GenerateChoices(int choiceNumber)

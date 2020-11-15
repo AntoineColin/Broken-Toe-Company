@@ -10,24 +10,25 @@ namespace Assets.Scripts.Actions
         public int nbTurnMax = 1;
         int nbTurn;
 
+        protected override void Begin() { }
         protected override void Effect()
         {
             nbTurn = nbTurnMax;
-            used = false;
+            available = false;
             GameManager.INSTANCE.company.SumToFood(-priceFood);
             GameManager.INSTANCE.company.SumToGold(-priceMoney);
             GameManager.INSTANCE.company.SumToStrength(bonusStrength);
             GameManager.INSTANCE.company.SumToSpeed(bonusSpeed);
             GameManager.INSTANCE.company.SumToMind(bonusMind);
 
-            GameManager.INSTANCE.onEncounterChange.AddListener(EndEffect);
+            GameManager.INSTANCE.onEncounterChanged.AddListener(EndEffect);
         }
 
         protected override void EndEffect()
         {
             if (--nbTurn <= 0)
             {
-                used = true;
+                available = true;
                 GameManager.INSTANCE.company.SumToStrength(-bonusStrength);
                 GameManager.INSTANCE.company.SumToSpeed(-bonusSpeed);
                 GameManager.INSTANCE.company.SumToMind(-bonusMind);
