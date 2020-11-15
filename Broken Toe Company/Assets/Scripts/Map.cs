@@ -53,6 +53,7 @@ public class Map : MonoBehaviour
                 checkSelected = biomes[i].selected;
             }
         }
+        
             
 
         foreach (BaseBiome biome in biomes)
@@ -65,8 +66,8 @@ public class Map : MonoBehaviour
         biomes.Add(waitingCleanBiome);
         biomes[0].GetComponent<Button>().enabled = false;
         biomes[0].transform.SetParent(transform.Find("BiomePrincipal"));
+        biomes[0].baseEncounter.ApplyEffect();
 
-        
 
         for (int i = 0; i < 3; i++)
         {
@@ -82,7 +83,7 @@ public class Map : MonoBehaviour
 
     void AddBiome(BaseBiome newBiome)
     {
-        biomes.Add(newBiome);            
+        biomes.Add(newBiome);        
     }
 
     public void UpdateEncounter()

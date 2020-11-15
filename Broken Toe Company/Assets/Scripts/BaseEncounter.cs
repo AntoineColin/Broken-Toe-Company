@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Actions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,7 +45,7 @@ public class BaseEncounter : MonoBehaviour
         switch (currentEncounter)
         {
             case TypeEncounter.FEU_DE_CAMP:
-                company.RemoveCharacter(x => x.surname != "", 3, Company.SelectionMethod.RANDOM);
+                company.RemoveCharacter(x => x.strength < 1, 5, Company.SelectionMethod.RANDOM);
                 break;
 
             case TypeEncounter.LOUP:
@@ -63,7 +64,8 @@ public class BaseEncounter : MonoBehaviour
                 break;
 
             case TypeEncounter.VILLAGE:
-                
+                ActionBuyCharacter.GenerateActionBuyCharacter();
+                ActionBuyCharacter.GenerateActionBuyCharacter();
                 break;
 
         }
