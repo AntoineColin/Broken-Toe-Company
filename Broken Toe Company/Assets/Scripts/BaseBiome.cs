@@ -18,6 +18,8 @@ public class BaseBiome : MonoBehaviour
 
     public BaseEncounter baseEncounter;
 
+    public int selected = 0;
+
     private void Start()
     {
         currentBiomeImage = transform.Find("biome").GetComponent<Image>();
@@ -47,5 +49,10 @@ public class BaseBiome : MonoBehaviour
     {
         baseEncounter = GenerateEncounter();
         baseEncounter.transform.SetParent(transform.Find("PanelEncounter"));
+    }
+
+    public void setSelected(int i)
+    {
+        selected += i;
     }
 }

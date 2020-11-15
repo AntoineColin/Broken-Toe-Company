@@ -42,17 +42,18 @@ public class Map : MonoBehaviour
 
     public void UpdateAllBiome()
     {
-        int index = 0;
         BaseBiome waitingCleanBiome = null;
-        foreach (BaseBiome biome in biomes)
-        {
-                if (biome.GetComponent<Button>().isActiveAndEnabled == true)
-                    waitingCleanBiome = biome;
-            index++;
-        }
 
-        if (waitingCleanBiome == null)
-            waitingCleanBiome = biomes[1];
+        int checkSelected = -1;
+        for (int i = 0; i < biomes.Count; i++)
+        {
+            if (i != 0 && biomes[i].selected > checkSelected)
+            {
+                waitingCleanBiome = biomes[i];
+                checkSelected = biomes[i].selected;
+            }
+        }
+            
 
         foreach (BaseBiome biome in biomes)
         {
