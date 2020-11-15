@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 401091283}
   - component: {fileID: 401091285}
   - component: {fileID: 401091284}
+  - component: {fileID: 401091286}
   m_Layer: 5
   m_Name: BiomePrincipal
   m_TagString: Untagged
@@ -191,6 +192,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401091282}
   m_CullTransparentMesh: 0
+--- !u!95 &401091286
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401091282}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a2f3b4693608cef439e66851839805f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &499689422
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +652,7 @@ GameObject:
   - component: {fileID: 1157593926}
   - component: {fileID: 1157593929}
   - component: {fileID: 1157593927}
+  - component: {fileID: 1157593928}
   m_Layer: 5
   m_Name: BiomeChoix
   m_TagString: Untagged
@@ -683,6 +704,25 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!95 &1157593928
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157593925}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 40eb084fbde42d04b88f573caa0286cc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!222 &1157593929
 CanvasRenderer:
   m_ObjectHideFlags: 0
