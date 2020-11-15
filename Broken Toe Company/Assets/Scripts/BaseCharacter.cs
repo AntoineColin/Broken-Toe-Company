@@ -19,6 +19,8 @@ public class BaseCharacter : MonoBehaviour
     Text strengthText, speedText, mindText, surnameText;
     public int price;
 
+   
+
     static readonly Random random = new Random();
     static readonly string[] surnames = { "Roger", "Thierry", "Yuan Zu", "Bohort", "Toby", "Jean-Michel", "Tony", "Cynthia", "Lydia", "Karen", "Chad", "Lee", "Christiana", "Ingeborg", "Alton", "Remedios", "Laurine", "Jay", "Cedrick", "Risa", "Mirta", "Roy", "Ethelene", "Pearle", "Candyce", "Tyrell", "Jazmin", "Charlie", "Keri", "Claud", "Nobuko", "Sebrina" };
 
@@ -81,6 +83,7 @@ public class BaseCharacter : MonoBehaviour
         baseCharacter.speed = random.Next(0, 3);
         baseCharacter.mind = random.Next(0, 3);
         baseCharacter.surname = surnames[random.Next(surnames.Length)];
+        baseCharacter.transform.GetComponentInChildren<Image>().sprite = GameManager.INSTANCE.faces[random.Next(0, 5)];
         baseCharacter.price = baseCharacter.strength * 5 + baseCharacter.speed * 5 + baseCharacter.mind * 5;
         return baseCharacter;
     }

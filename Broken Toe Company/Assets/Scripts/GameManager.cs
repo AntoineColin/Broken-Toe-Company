@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     public int clickedBiome = 2;
 
+    public Sprite[] faces;
     public AudioClip[] clips;
     new AudioSource audio;
     bool strongerMusic = false;
