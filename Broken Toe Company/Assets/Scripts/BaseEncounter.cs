@@ -39,18 +39,31 @@ public class BaseEncounter : MonoBehaviour
 
     public void ApplyEffect()
     {
+        Company company = GameManager.INSTANCE.company;
+
         switch (currentEncounter)
         {
             case TypeEncounter.FEU_DE_CAMP:
+                company.RemoveCharacter(x => x.surname != "", 3, Company.SelectionMethod.RANDOM);
                 break;
 
             case TypeEncounter.LOUP:
+                if (company.GetTotalStrength() > 4)
+                {
+                    company.SumToGold(2);
+                }
+                else
+                {
+                    company.RemoveCharacter(x => x.surname != "", 1, Company.SelectionMethod.RANDOM);
+                }
                 break;
 
             case TypeEncounter.OASIS:
+                company.SumToGold(50);
                 break;
 
             case TypeEncounter.VILLAGE:
+                
                 break;
 
         }
