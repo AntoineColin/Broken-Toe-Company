@@ -179,7 +179,7 @@ MonoBehaviour:
   strengthMod: 0
   speedMod: 0
   mindMod: 0
-  startingCharacter: 1
+  startingCharacter: 3
 --- !u!114 &134392602
 MonoBehaviour:
   m_ObjectHideFlags: 0
