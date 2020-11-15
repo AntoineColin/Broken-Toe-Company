@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,16 +21,21 @@ public class BaseCharacter : MonoBehaviour
     [Range(-3, 3)]
     public int mind;
 
-    Text strengthText, speedText, mindText;
+    Text strengthText, speedText, mindText, surnameText;
+
+    static Random random = new Random();
+    static string[] surnames = { "Roger", "Thierry", "Yuan Zu", "Bohort", "Toby", "Jean-Michel", "Tony", "Cynthia", "Lydia", "Karen", "Chad", "Lee", "Christiana", "Ingeborg", "Alton", "Remedios", "Laurine", "Jay", "Cedrick", "Risa", "Mirta", "Roy", "Ethelene", "Pearle", "Candyce", "Tyrell", "Jazmin", "Charlie", "Keri", "Claud", "Nobuko", "Sebrina"};
 
     void Start()
     {
+        surnameText = transform.Find("SurnameText").GetComponent<Text>();
         strengthText = transform.Find("StrengthText").GetComponent<Text>();
         speedText = transform.Find("SpeedText").GetComponent<Text>();
         mindText = transform.Find("MindText").GetComponent<Text>();
         UpdateStrengthText();
         UpdateSpeedText();
         UpdateMindText();
+        UpdateSurnameText();
     }
 
     void UpdateStrengthText()
@@ -57,11 +64,11 @@ public class BaseCharacter : MonoBehaviour
     {
         if(speed > 0)
         {
-            speedText.text = "Strong";
+            speedText.text = "Fast";
             speedText.color = Color.green;
         }else if(speed < 0)
         {
-            speedText.text = "Weak";
+            speedText.text = "Slow";
             speedText.color = Color.red;
         }
         else
@@ -79,11 +86,11 @@ public class BaseCharacter : MonoBehaviour
     {
         if(mind > 0)
         {
-            mindText.text = "Strong";
+            mindText.text = "Smart";
             mindText.color = Color.green;
         }else if(mind < 0)
         {
-            mindText.text = "Weak";
+            mindText.text = "Idiot";
             mindText.color = Color.red;
         }
         else
@@ -95,6 +102,11 @@ public class BaseCharacter : MonoBehaviour
         {
             mindText.text = mindText.text + " +";
         }
+    }
+
+    void UpdateSurnameText()
+    {
+        surnameText.text = surname + " " + currentSkill.ToString().ToLower();
     }
 
     void JoinCompany()
@@ -116,15 +128,14 @@ public class BaseCharacter : MonoBehaviour
 
     public static GameObject GenerateCharacter()
     {
-        GameObject charaObject = (GameObject)Instantiate(Resources.Load("Prefabs/CharacterPanel.prefab"));
+        GameObject charaObject = (GameObject)Instantiate(Resources.Load("CharacterPanel"));
         BaseCharacter baseCharacter = charaObject.GetComponent<BaseCharacter>();
         Array values = Enum.GetValues(typeof(Skill));
-        Random random = new Random();
         baseCharacter.currentSkill = (Skill)values.GetValue(random.Next(values.Length));
         baseCharacter.strength = random.Next(-1, 2);
         baseCharacter.speed = random.Next(-1, 2);
         baseCharacter.mind = random.Next(-1, 2);
-        baseCharacter.surname = "Roger";
+        baseCharacter.surname = surnames[random.Next(surnames.Length)];
         return charaObject;
     }
 

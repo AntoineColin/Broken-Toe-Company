@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using static BaseCharacter;
 
 public class Company : MonoBehaviour
 {
+    public enum SelectionMethod { RANDOM, FIRST, LAST }
+
     public List<BaseCharacter> characters;
     public int gold = 0;
     public int food = 0;
@@ -14,12 +17,17 @@ public class Company : MonoBehaviour
     public int speedMod;
     public int mindMod;
 
-    public enum SelectionMethod { RANDOM, FIRST, LAST }
+    [Range(1, 4)]
+    public int startingCharacter = 1;
 
     void Start()
     {
-        //GenerateCharacter().transform.parent = transform;
-        characters.AddRange(transform.GetComponentsInChildren<BaseCharacter>());
+        for (int i = 0; i< startingCharacter; i++)
+        {
+            GameObject goChara = GenerateCharacter();
+            goChara.transform.SetParent(transform);
+            AddCharacter(goChara.GetComponent<BaseCharacter>());
+        }
     }
 
     public void AddCharacter(BaseCharacter character)
@@ -92,7 +100,7 @@ public class Company : MonoBehaviour
 
     public void SumToFood(int amount)
     {
-        if (amount > 0 && HasSkill(Skill.COOK)) amount = (int)(amount * 1.5f);
+        if (amount > 0 && HasSkill(Skill.COOK)) amount = (int)(amount * 2);
         food += amount;
         if (food < 0) food = 0;
     }
@@ -100,12 +108,6 @@ public class Company : MonoBehaviour
     public int GetTotalStrength()
     {
         return strengthMod + characters.Select(x => x.strength).Sum();
-    }
-    public Boolean checkGold(int gold)
-    {
-        int check = this.gold + gold;
-        return check > 0 ? true : false;
-       
     }
 
     public int GetTotalSpeed()
@@ -118,12 +120,12 @@ public class Company : MonoBehaviour
         return mindMod + characters.Select(x => x.mind).Sum();
     }
 
-    public bool hasEnoughGold(int goldAmount)
+    public bool HasEnoughGold(int goldAmount)
     {
         return gold >= goldAmount;
     }
 
-    public bool hasEnoughFood(int foodAmount)
+    public bool HasEnoughFood(int foodAmount)
     {
         return food >= foodAmount;
     }
@@ -132,12 +134,4 @@ public class Company : MonoBehaviour
     {
         return characters.Any(x => x.currentSkill == skill);
     }
-
-    public void changeGold(int gold)
-    {
-        this.gold += gold;
-        if (this.gold < 0) 
-            this.gold = 0;
-    }
-
 }
